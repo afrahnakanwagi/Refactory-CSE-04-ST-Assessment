@@ -1,0 +1,125 @@
+{% load crispy_forms_tags %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Passenger Form</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        .form-header {
+            margin-bottom: 1.5rem;
+            font-size: 1.25rem;
+            font-weight: bold;
+        }
+        .form-container {
+            border: 2px solid #ff0000;
+            padding: 20px;
+ 
+        }
+        .invalid-feedback {
+            display: block; 
+        }
+        .text-danger {
+            color: red;
+        }
+        .btn-submit {
+            background-color: maroon;
+            border: none;
+            color: white;
+        }
+        .btn-submit:hover {
+            background-color: darkred;
+        }
+    .form-header{
+        color:#ff0000;
+    }
+    .header-image {
+        width: 100%;
+        max-height: 250px;
+        object-fit: cover; 
+    }
+    </style>
+</head>
+
+<body>
+    <div class="container mt-5">
+        <img src="{% static 'images/header.png' %}" alt="Header Image" class="header-image mb-4">
+        <form method="POST" enctype="multipart/form-data" novalidate>
+            {% csrf_token %}
+            <div class="form-container">
+                <div class="row">
+
+                    <div class="col-md-4">
+                        <div class="form-header">PASSENGER INFORMATION</div>
+                        {{ form.full_name|as_crispy_field }}
+                        {{ form.gender|as_crispy_field }}
+                        {{ form.date_of_birth|as_crispy_field }}
+                        {{ form.nationality|as_crispy_field }}
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="form-header">CONTACT INFORMATION</div>
+                        {{ form.phone_number|as_crispy_field }}
+                        {{ form.email_address|as_crispy_field }}
+                        {{ form.box_number|as_crispy_field }}
+                        {{ form.emmergency_phone_number|as_crispy_field }}
+                    </div>
+
+                
+                    <div class="col-md-4">
+                        <div class="form-header">FLIGHT INFORMATION</div>
+                        {{ form.passport_number|as_crispy_field }}
+                        {{ form.visa_document|as_crispy_field }}
+                        {{ form.departure_city|as_crispy_field }}
+                        {{ form.destination_city|as_crispy_field }}
+                    </div>
+                    
+                         <div class="form-group">
+                            <button type="submit" class="btn btn-danger mt-3" style="width:350px; float:right;">Submit</button>
+                        </div>
+
+                        <div id="successMessage" class="text-center mt-3 text-success" style="display: none;">
+                            Form has been submitted successfully!
+                        </div>
+                </div>
+            </div>
+
+   
+
+        </form>
+    </div>
+
+ 
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <script>
+ 
+        (function () {
+            'use strict';
+            var form = document.querySelector('form');
+
+            form.addEventListener('submit', function (event) {
+                if (form.checkValidity() === false) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                } else {
+                    event.preventDefault();
+                    document.getElementById('successMessage').style.display = 'block';
+                }
+
+                form.classList.add('was-validated');
+            }, false);
+        })();
+    </script>
+</body>
+
+</html>
